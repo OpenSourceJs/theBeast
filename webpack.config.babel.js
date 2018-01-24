@@ -1,35 +1,35 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const htmlTemplate = require('html-webpack-template');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+import webpack from 'webpack';
+import path from 'path';
+import _ from 'lodash';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import htmlTemplate from 'html-webpack-template';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+// import BundleAnalyzerPlugin from 'webpack-bundle-analyzer'.BundleAnalyzerPlugin;
 
 const BUILD_DIR = path.resolve(__dirname, './client/dist');
 const APP_DIR = path.resolve(__dirname, './client/src');
 
 const fontLoaderConfig = {
   name: '/fonts/[name].[ext]',
-  limit: 100
+  limit: 100,
 };
 
 const config = {
   entry: ['babel-polyfill', 'react-hot-loader/patch', `${APP_DIR}/main.jsx`],
   output: {
     path: BUILD_DIR,
-    filename: 'js/[name].js',
-    publicPath: '/'
+    filename: './js/[name].js',
+    publicPath: '/',
   },
   cache: true,
   devtool: 'inline-source-map',
   stats: {
     colors: true,
-    reasons: true
+    reasons: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
 
   plugins: [
@@ -37,25 +37,24 @@ const config = {
       names: ['common', 'main'],
       minChunks: Infinity,
       children: true,
-      async: true
+      async: true,
     }),
     new CleanWebpackPlugin(['./client/dist/']),
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: true,
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-      }
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
     }),
     new HtmlWebpackPlugin({
-      title: 'JsStaterKit',
+      title: 'the Beast',
       xhtml: true,
       hash: true,
       inject: false,
       cache: true,
       showErrors: true,
-
       template: htmlTemplate,
       appMountId: 'root-container',
       mobile: true,
@@ -63,40 +62,36 @@ const config = {
       links: ['https://fonts.googleapis.com/css?family=Roboto:300,400,500'],
       meta: [
         {
-          httpEquiv: 'Content-Security-Policy',
-          content:
-            "default-src 'none'; font-src 'self' data: https://fonts.googleapis.com/css?family=Roboto:300,400,500;"
-        },
-        {
           name: 'dscription',
-          content: ''
+          content: '',
         },
         {
           name: 'keyword',
-          content: ''
+          content: '',
         },
         {
           name: 'author',
-          content: 'Mohamed Gassama'
+          content: 'Mohamed Gassama',
         },
         {
           name: 'Content-Type',
-          content: 'http-equiv'
+          content: 'http-equiv',
         },
         {
           name: 'content',
-          content: 'text/html; charset=UTF-8'
+          content: 'text/html; charset=UTF-8',
         },
         {
           name: 'viewport',
           content:
-            'width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0'
-        }
-      ]
+            'width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0',
+        },
+      ],
     }),
-    new ExtractTextPlugin('/css/[name].css', {
-      allChunks: true
-    })
+    new ExtractTextPlugin({
+      filename: './css/[name].css',
+      allChunks: true,
+    }),
   ],
 
   module: {
@@ -105,24 +100,24 @@ const config = {
         test: /\.s(a|c)ss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader!sass-loader'
-        })
+          use: 'css-loader!sass-loader',
+        }),
       },
       {
         test: /\.(js|jsx)$/,
         use: [
           {
-            loader: 'babel-loader'
-          }
+            loader: 'babel-loader',
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
-        })
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.(png|gif|jpg|jpeg)$/,
@@ -130,10 +125,10 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: '/images/[name].[ext]'
-            }
-          }
-        ]
+              name: '/images/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.ico$/,
@@ -141,10 +136,10 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: '/[name].[ext]'
-            }
-          }
-        ]
+              name: '/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -153,10 +148,10 @@ const config = {
             loader: 'url-loader',
             options: {
               ...fontLoaderConfig,
-              mimetype: 'application/font-woff'
-            }
-          }
-        ]
+              mimetype: 'application/font-woff',
+            },
+          },
+        ],
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -165,19 +160,19 @@ const config = {
             loader: 'url-loader',
             options: {
               ...fontLoaderConfig,
-              mimetype: 'application/octet-stream'
-            }
-          }
-        ]
+              mimetype: 'application/octet-stream',
+            },
+          },
+        ],
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
             loader: 'file-loader',
-            options: fontLoaderConfig
-          }
-        ]
+            options: fontLoaderConfig,
+          },
+        ],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -186,13 +181,13 @@ const config = {
             loader: 'url-loader',
             options: {
               ...fontLoaderConfig,
-              mimetype: 'mimetype=image/svg+xml'
-            }
-          }
-        ]
-      }
-    ]
-  }
+              mimetype: 'mimetype=image/svg+xml',
+            },
+          },
+        ],
+      },
+    ],
+  },
 };
 
 if (
@@ -203,15 +198,15 @@ if (
   const prodPlugins = [
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: true
+        warnings: true,
       },
       output: {
-        comments: false
-      }
-    })
+        comments: false,
+      },
+    }),
   ];
 
-  config.plugins = config.plugins.concat(prodPlugins);
+  config.plugins = _.concat(config.plugins, prodPlugins);
   config.cache = false;
   config.debug = false;
   config.devtool = undefined;

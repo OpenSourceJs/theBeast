@@ -2,7 +2,7 @@ import passport from 'passport';
 import JwtStrategy from 'passport-jwt';
 import ExtractJwt from 'passport-jwt';
 import LocalStrategy from 'passport-local';
-import User from '../api/auth/userModels';
+import User from '../api/auth/user';
 import config from '../../config/secret';
 
 const JwtS = JwtStrategy.Strategy;
@@ -10,7 +10,7 @@ const Ext = ExtractJwt.ExtractJwt;
 const localOptions = { usernameField: 'email' };
 const jwtOptions = {
   jwtFromRequest: Ext.fromHeader('authorization'),
-  secretOrKey: config.secret,
+  secretOrKey: config.secret
 };
 
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {

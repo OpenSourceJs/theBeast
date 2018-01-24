@@ -1,4 +1,13 @@
 {
-  "extends": "airbnb",
-  "plugins": ["react", "jsx-a11y", "import"]
+  "extends": [
+    "airbnb",
+    "standard",
+    "plugin:flowtype/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "plugins": ["react", "jsx-a11y", "import", "flowtype", "prettier", "standard"]
 }

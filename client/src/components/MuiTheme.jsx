@@ -7,7 +7,7 @@ const theme = createMuiTheme({
   palette: {
     primary: blue,
     accent: pink,
-    error: red
+    error: red,
   },
   typography: {
     fontSize: 14,
@@ -16,47 +16,47 @@ const theme = createMuiTheme({
     fontWeightMedium: 400,
     display4: {
       fontSize: 50,
-      fontWeight: 300
+      fontWeight: 300,
     },
     display3: {
       fontSize: 40,
-      fontWeight: 300
+      fontWeight: 300,
     },
     display2: {
       fontSize: 32,
-      fontWeight: 300
+      fontWeight: 300,
     },
     display1: {
       fontSize: 28,
-      fontWeight: 300
+      fontWeight: 300,
     },
     headline: {
       fontSize: 22,
-      fontWeight: 300
+      fontWeight: 300,
     },
     title: {
       fontSize: 18,
-      fontWeight: 400
+      fontWeight: 400,
     },
     subheading: {
       fontSize: 14,
-      fontWeight: 300
+      fontWeight: 300,
     },
     body2: {
       fontSize: 16,
-      fontWeight: 400
+      fontWeight: 400,
     },
     body1: {
       fontSize: 15,
-      fontWeight: 300
+      fontWeight: 300,
     },
     caption: {
-      fontWeight: 300
+      fontWeight: 300,
     },
     button: {
       fontWeight: 400,
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   },
   // Our own variables
   content: {
@@ -65,9 +65,9 @@ const theme = createMuiTheme({
       sm: 8,
       nm: 16,
       lg: 24,
-      xl: 40
-    }
-  }
+      xl: 40,
+    },
+  },
 });
 
 const MuiTheme = ({ children }) => (
@@ -75,7 +75,7 @@ const MuiTheme = ({ children }) => (
 );
 
 MuiTheme.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default MuiTheme;

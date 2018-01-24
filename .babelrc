@@ -1,14 +1,15 @@
 {
-  "presets": ["env", "react", "stage-2", "airbnb"],
+  "presets": ["env", "react", "stage-0", "airbnb", "flow"],
   "compact": true,
   "plugins": [
-    ["transform-object-rest-spread"],
+    "transform-object-rest-spread",
     [
       "transform-strict-mode",
       {
         "strict": true
       }
     ],
-    ["react-hot-loader/babel"]
+    "react-hot-loader/babel",
+    "transform-class-properties"
   ]
 }

@@ -1,34 +1,38 @@
-import jwt from 'jsonwebtoken';
-import User from '../../dbConfig/mongooseModel/Auth';
-import secretToken from '../../../config/secret';
+const jwt = require('jsonwebtoken');
+const User = require('./user');
+const secretToken = require('../../../config/secret');
 
-const isValidEmail = (validEmail) => {
-  const emailRegex = new RegExp(/^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i);
-  return emailRegex.test(validEmail);
-};
-
-const tokenForUser = (user) => {
+const tokenForUser = user => {
   const timeStamp = new Date().getTime();
   return jwt.sign({ sub: user.id, iat: timeStamp }, secretToken.secret);
 };
-
-const userModel = {};
-
-userModel.signIn = (req, res, next) => {
-  res.send({ token: tokenForUser(req.user) });
-  next();
+const isValidEmail = validEmail => {
+  const emailRegex = new RegExp(
+    /^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i,
+  );
+  return emailRegex.test(validEmail);
 };
 
-userModel.signUp = (req, res, next) => {
-  const { email } = req.body.email;
-  const { password } = req.body.password;
+exports.signin = (req, res, next) => {
+  // User already had their email and password auth'd
+  // We jsut need to give then a token
+  res.send({ token: tokenForUser(req.user) });
+};
+
+exports.signup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
   if (!email || !password) {
-    return res.status(422).send({ error: 'You must provide email and password' });
+    return res
+      .status(422)
+      .send({ error: 'You must provide email and password' });
   }
 
   if (isValidEmail(email)) {
-    return res.status(422).send({ error: 'You must provide a perfect email format' });
+    return res
+      .status(422)
+      .send({ error: 'You must provide valid email format' });
   }
 
   // See if a user with a given email exists
@@ -46,7 +50,7 @@ userModel.signUp = (req, res, next) => {
       password,
     });
 
-    user.save((err) => {
+    user.save(err => {
       if (err) {
         return next(err);
       }
@@ -55,5 +59,3 @@ userModel.signUp = (req, res, next) => {
     });
   });
 };
-
-export default userModel;

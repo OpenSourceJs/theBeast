@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { Route, BrowserRouter } from 'react-router-dom';
-import configStore from './store/configStore.js';
-import App from './components/App.jsx';
-import MuiTheme from './components/MuiTheme.jsx';
+import configStore from './store/configStore';
+import App from './components/App/App';
+import MuiTheme from './components/MuiTheme';
 
 const render = component => {
   ReactDOM.render(
@@ -18,7 +18,7 @@ const render = component => {
         </Provider>
       </MuiTheme>
     </AppContainer>,
-    document.querySelector('#root-container')
+    document.querySelector('#root-container'),
   );
 };
 

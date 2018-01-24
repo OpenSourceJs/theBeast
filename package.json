@@ -5,17 +5,17 @@
     "node": "9.2.0"
   },
   "private": true,
-  "description":
-    "This is a full stack web application react-redux frontend and express and postgres in the backend ",
+  "description": "This is a full stack web application react-redux frontend and express and postgres in the backend ",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": [
+    "react-hot-loader/babel"
+  ],
   "scripts": {
     "prestart": "babel-node bin/scripts/startMessage.js",
-    "start":
-      "npm-run-all --parallel security-check test lint:watch db watch open:src",
+    "start": "npm-run-all --parallel security-check test lint:watch db watch open:src",
     "security-check": "nsp check",
     "test": "mocha --reporter progress test \"test/**/**/**/*.spec.js\"",
     "watch": "webpack -d --progress --watch",
@@ -33,7 +33,10 @@
     "type": "git",
     "url": "git+https://github.com/OpenSourceJs/theBeast.git"
   },
-  "keywords": ["Starter", "kit"],
+  "keywords": [
+    "Starter",
+    "kit"
+  ],
   "author": "Mohamed Gassama",
   "license": "MIT",
   "bugs": {
@@ -86,6 +89,7 @@
     "postcss-loader": "^2.0.10",
     "prettier": "^1.9.2",
     "prop-types": "^15.6.0",
+    "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",
@@ -128,6 +132,8 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pg": "^7.4.0",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
   }
 }

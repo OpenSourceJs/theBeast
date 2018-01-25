@@ -10,7 +10,7 @@ const Ext = ExtractJwt.ExtractJwt;
 const localOptions = { usernameField: 'email' };
 const jwtOptions = {
   jwtFromRequest: Ext.fromHeader('authorization'),
-  secretOrKey: config.secret
+  secretOrKey: config.secret,
 };
 
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {

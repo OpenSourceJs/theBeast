@@ -142,10 +142,26 @@ class SignUp extends Component {
 // Sync field level validation for password match
 const validateForm = values => {
   const errors = {};
-  const { password, passwordConfirm } = values;
+  const { email, password, passwordConfirm } = values;
+
+  const emailRegex = new RegExp(
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  );
+
+  return emailRegex.test(values);
+
   if (password !== passwordConfirm) {
     errors.passwordConfirm = 'Password does not match.';
   }
+
+  if (password.length && passwordConfirm.length < 8) {
+    errors.password = 'Password must have at least a length of 8 characters';
+  }
+
+  if (isValidEmail(email)) {
+    errors.email = 'You must provide valid email format';
+  }
+
   return errors;
 };
 

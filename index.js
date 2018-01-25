@@ -8,7 +8,7 @@ const port = process.argv[2] || process.env.Port || 3000;
 const renderToTheBrowser = () => {
   return global.setTimeout(() => {
     opn(`http://localhost:${port}`);
-  }, 20000);
+  }, 30000);
 };
 
 server.listen(port, err => {

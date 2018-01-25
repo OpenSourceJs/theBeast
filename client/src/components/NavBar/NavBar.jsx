@@ -22,19 +22,19 @@ class NavBar extends Component {
   renderLinks() {
     if (this.props.authenticated) {
       return (
-        <Button color="contrast" component={Link} to="/signout">
+        <Button color="inherit" component={Link} to="/signout">
           Sign Out
         </Button>
       );
     } else {
       return [
         <div key="0">
-          <Button color="contrast" component={Link} to="/signin">
+          <Button color="inherit" component={Link} to="/signin">
             Sign In
           </Button>
         </div>,
         <div key="1">
-          <Button color="contrast" component={Link} to="/signup">
+          <Button color="inherit" component={Link} to="/signup">
             Sign Up
           </Button>
         </div>,
@@ -48,8 +48,13 @@ class NavBar extends Component {
       <div className={classes.root}>
         <AppBar>
           <Toolbar>
-            <Typography type="title" className={classes.flex}>
-              <Button color="contrast" component={Link} to="/">
+            <Typography color="inherit" type="title" className={classes.flex}>
+              <Button
+                color="inherit"
+                className={classes.flex}
+                component={Link}
+                to="/"
+              >
                 Beast
               </Button>
             </Typography>

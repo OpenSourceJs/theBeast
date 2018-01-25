@@ -8,9 +8,9 @@ const tokenForUser = user => {
 };
 const isValidEmail = validEmail => {
   const emailRegex = new RegExp(
-    /^[A-Z0-9._%+-]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i,
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
-  return emailRegex.test(validEmail);
+  return emailRegex.test(validEmail.toLowerCase());
 };
 
 exports.signin = (req, res, next) => {
@@ -29,7 +29,13 @@ exports.signup = (req, res, next) => {
       .send({ error: 'You must provide email and password' });
   }
 
-  if (isValidEmail(email)) {
+  if (password.length < 8) {
+    return res
+      .status(422)
+      .send({ error: 'Password must have at least a length of 8 characters' });
+  }
+
+  if (!isValidEmail(email)) {
     return res
       .status(422)
       .send({ error: 'You must provide valid email format' });

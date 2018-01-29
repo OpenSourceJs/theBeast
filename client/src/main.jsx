@@ -6,12 +6,19 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import configStore from './store/configStore';
 import App from './components/App/App';
 import MuiTheme from './components/MuiTheme';
+import { AUTH_USER } from '../src/action/actionTypes/authActionTypes';
+
+const token = localStorage.getItem('token');
+
+if (token) {
+  configStore.dispatch({ type: AUTH_USER });
+}
 
 const render = component => {
   ReactDOM.render(
     <AppContainer>
       <MuiTheme>
-        <Provider store={configStore()}>
+        <Provider store={configStore}>
           <BrowserRouter>
             <Route component={component} />
           </BrowserRouter>

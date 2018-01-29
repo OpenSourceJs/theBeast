@@ -4,8 +4,8 @@ const Authentication = require('../authentication');
 const passportService = require('../../../services/passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
-const signupRoute = express.Router();
+const signUpRoute = express.Router();
 
-signupRoute.route('/').post(Authentication.signup);
+signUpRoute.route('/').post(Authentication.signup);
 
-export default signupRoute;
+export default signUpRoute;

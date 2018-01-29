@@ -20,7 +20,7 @@ const authError = error => {
   };
 };
 
-export const signupUser = (email, password) => {
+export const signupUser = (email, password, callback) => {
   return dispatch => {
     const signupUrl = `${ROOT_URL}/signup`;
 
@@ -39,8 +39,8 @@ export const signupUser = (email, password) => {
         localStorage.setItem('token', response.data.token);
 
         // redirect to the route '/feature'
-        history.push('/feature');
       })
+      .then(() => callback())
       .catch(error => {
         // If request is bad...
         // Show an error to the user
@@ -49,7 +49,7 @@ export const signupUser = (email, password) => {
   };
 };
 
-export const signinUser = ({ email, password }) => {
+export const signinUser = ({ email, password }, callback) => {
   return dispatch => {
     // Submit email/password to the server
     const signinUrl = `${ROOT_URL}/signin`;
@@ -68,8 +68,8 @@ export const signinUser = ({ email, password }) => {
         localStorage.setItem('token', response.data.token);
 
         // redirect to the route '/feature'
-        history.push('/feature');
       })
+      .then(() => callback())
       .catch(() => {
         // If request is bad...
         // Show an error to the user
@@ -87,13 +87,15 @@ export const signoutUser = () => {
 
 export const fetchMessage = () => {
   return dispatch => {
+    const featureUrl = `${ROOT_URL}/feature`;
     axios
-      .get(ROOT_URL, {
+      .get(featureUrl, {
         headers: {
           authorization: localStorage.getItem('token'),
         },
       })
       .then(response => {
+        console.log(response);
         dispatch({
           type: FETCH_MESSAGE,
           payload: response.data.message,

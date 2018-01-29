@@ -1,7 +1,7 @@
 import request from 'supertest';
 const server = request.agent('http://localhost:3000');
 
-describe('Authentication user', () => {
+xdescribe('Authentication user', () => {
   it('should create new user', done => {
     request(server)
       .post('/signin')

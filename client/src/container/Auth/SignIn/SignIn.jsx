@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { TextField, Paper, Typography, Button, withStyles } from 'material-ui';
 import { Send } from 'material-ui-icons';
 import { signinUser } from '../../../action/actionCreators/authActionCreators';
-import { required } from '../validation';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -53,7 +52,9 @@ class SignIn extends Component {
   };
 
   handleFormSubmit({ email, password }) {
-    this.props.signinUser({ email, password });
+    this.props.signinUser({ email, password }, () => {
+      this.props.history.push('/feature');
+    });
   }
   renderAlert() {
     if (this.props.errorMessage) {
@@ -98,7 +99,6 @@ class SignIn extends Component {
               label="Email"
               type="text"
               className={classes.textField}
-              validate={[required]}
             />
             <Field
               name="password"
@@ -106,7 +106,6 @@ class SignIn extends Component {
               label="Password"
               type="Password"
               className={classes.textField}
-              validate={[required]}
             />
             {this.renderAlert()}
             <Button
@@ -128,10 +127,26 @@ class SignIn extends Component {
   }
 }
 
+const validateForm = values => {
+  const errors = {};
+  const { email, password, passwordConfirm } = values;
+
+  if (!email) {
+    errors.email = 'Please enter an email';
+  }
+
+  if (!password) {
+    errors.password = 'Please enter a password';
+  }
+
+  return errors;
+};
+
 const mapStateToProps = state => {
   return { errorMessage: state.auth.error };
 };
 
 export default reduxForm({
   form: 'signin',
+  validate: validateForm,
 })(withStyles(styles)(connect(mapStateToProps, { signinUser })(SignIn)));

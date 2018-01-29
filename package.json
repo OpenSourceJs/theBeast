@@ -15,7 +15,7 @@
   "scripts": {
     "prestart": "babel-node bin/scripts/startMessage.js",
     "start":
-      "npm-run-all --parallel security-check  lint:watch db watch open:src",
+      "npm-run-all --parallel security-check test lint:watch db watch open:src",
     "security-check": "nsp check",
     "test":
       "mocha --reporter progress --require babel-core/register test \"test/**/**/**/*.test.js\"",
@@ -62,6 +62,8 @@
     "chalk": "^2.3.0",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",

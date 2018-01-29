@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { TextField, Paper, Typography, Button, withStyles } from 'material-ui';
 import { Send } from 'material-ui-icons';
 import { signupUser } from '../../../action/actionCreators/authActionCreators';
-import { required } from '../validation';
+
 import './SignUp.css';
 
 const styles = theme => ({
@@ -54,7 +54,9 @@ class SignUp extends Component {
   };
 
   handleFormSubmit({ email, password }) {
-    this.props.signupUser(email, password);
+    this.props.signupUser(email, password, () => {
+      this.props.history.push('/feature');
+    });
   }
 
   renderAlert() {
@@ -101,7 +103,6 @@ class SignUp extends Component {
               label="Email"
               type="text"
               className={classes.textField}
-              validate={[required]}
             />
             <Field
               name="password"
@@ -109,7 +110,6 @@ class SignUp extends Component {
               label="Password"
               type="Password"
               className={classes.textField}
-              validate={[required]}
             />
             <Field
               name="passwordConfirm"
@@ -117,7 +117,6 @@ class SignUp extends Component {
               label="Confirm Password"
               type="Password"
               className={classes.textField}
-              validate={[required]}
             />
             {this.renderAlert()}
             <Button
@@ -144,22 +143,20 @@ const validateForm = values => {
   const errors = {};
   const { email, password, passwordConfirm } = values;
 
-  const emailRegex = new RegExp(
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  );
+  if (!email) {
+    errors.email = 'Please enter an email';
+  }
 
-  return emailRegex.test(values);
+  if (!password) {
+    errors.password = 'Please enter a password';
+  }
+
+  if (!passwordConfirm) {
+    errors.passwordConfirm = 'Please enter a password comfirmation';
+  }
 
   if (password !== passwordConfirm) {
     errors.passwordConfirm = 'Password does not match.';
-  }
-
-  if (password.length && passwordConfirm.length < 8) {
-    errors.password = 'Password must have at least a length of 8 characters';
-  }
-
-  if (isValidEmail(email)) {
-    errors.email = 'You must provide valid email format';
   }
 
   return errors;

@@ -19,7 +19,7 @@ export default function(ComposedComponent) {
 
     checkAuthentication(props) {
       if (!props.authenticated) {
-        this.props.history.push('/signin');
+        this.props.history.push('/');
       }
     }
 

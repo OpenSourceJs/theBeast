@@ -188,7 +188,7 @@ const config = {
       },
       {
         test: /\.txt$/,
-        use: 'raw-loader'
+        use: 'raw-loader',
       },
     ],
   },

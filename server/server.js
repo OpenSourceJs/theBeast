@@ -6,7 +6,7 @@ import { clientErr, serverErr } from './middlewares/errors';
 import dbconfig from '../server/dbConfig/mongodb';
 import signInRoute from './api/auth/routes/signin';
 import signUpRoute from './api/auth/routes/signup';
-
+import featureRoute from './api/feature/featureRoute';
 const server = express();
 http.createServer(server);
 
@@ -18,6 +18,7 @@ middleware(server);
 // api routes
 server.use('/signup', signUpRoute);
 server.use('/signin', signInRoute);
+server.use('/feature', featureRoute);
 
 // mongodb
 dbconfig();

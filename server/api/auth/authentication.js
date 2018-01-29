@@ -6,11 +6,19 @@ const tokenForUser = user => {
   const timeStamp = new Date().getTime();
   return jwt.sign({ sub: user.id, iat: timeStamp }, secretToken.secret);
 };
+
 const isValidEmail = validEmail => {
   const emailRegex = new RegExp(
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
   return emailRegex.test(validEmail.toLowerCase());
+};
+
+const isValidPassword = validPassword => {
+  const passwordRegex = new RegExp(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,10}/,
+  );
+  return passwordRegex.test(validPassword);
 };
 
 exports.signin = (req, res, next) => {
@@ -29,16 +37,19 @@ exports.signup = (req, res, next) => {
       .send({ error: 'You must provide email and password' });
   }
 
-  if (password.length < 8) {
-    return res
-      .status(422)
-      .send({ error: 'Password must have at least a length of 8 characters' });
-  }
-
   if (!isValidEmail(email)) {
     return res
       .status(422)
       .send({ error: 'You must provide valid email format' });
+  }
+
+  if (!isValidPassword(password)) {
+    return res
+      .status(422)
+      .send({
+        error:
+          'Password must have minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+      });
   }
 
   // See if a user with a given email exists

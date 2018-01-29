@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { blue, pink, red, white } from 'material-ui/colors';
+import { blue, pink, red } from 'material-ui/colors';
 
 const theme = createMuiTheme({
   palette: {

@@ -5,7 +5,9 @@ import logger from 'redux-logger';
 
 import rootReducer from '../reducers/rootReducer';
 
-const configStore = () =>
-  createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+const configStore = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk, logger)),
+);
 
 export default configStore;

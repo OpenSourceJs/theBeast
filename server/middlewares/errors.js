@@ -7,7 +7,7 @@ export const clientErr = (err, req, res, next) => {
   res
     .status(404)
     .sendFile(path.join(__dirname, '../../client/public/notFound.html'));
-  next();
+  next(err);
 };
 
 export const serverErr = (err, req, res, next) => {
@@ -15,9 +15,7 @@ export const serverErr = (err, req, res, next) => {
   res
     .status(500)
     .sendFile(
-      path.join(__dirname, '../../client/public/internalServerError.html')
+      path.join(__dirname, '../../client/public/internalServerError.html'),
     );
-  next();
+  next(err);
 };
-
-

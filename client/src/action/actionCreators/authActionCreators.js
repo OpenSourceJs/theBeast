@@ -1,5 +1,4 @@
 import axios from 'axios';
-import history from '../../../../config/historyUtils';
 import {
   AUTH_ERROR,
   AUTH_USER,
@@ -37,8 +36,6 @@ export const signupUser = (email, password, callback) => {
 
         // Save the JWT token
         localStorage.setItem('token', response.data.token);
-
-        // redirect to the route '/feature'
       })
       .then(() => callback())
       .catch(error => {
@@ -66,8 +63,6 @@ export const signinUser = ({ email, password }, callback) => {
 
         // Save the JWT token
         localStorage.setItem('token', response.data.token);
-
-        // redirect to the route '/feature'
       })
       .then(() => callback())
       .catch(() => {

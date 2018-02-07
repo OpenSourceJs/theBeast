@@ -5,20 +5,19 @@
     "node": "9.2.0"
   },
   "private": true,
-  "description":
-    "This is a full stack web application react-redux frontend and express and postgres in the backend ",
+  "description": "This is a full stack web application react-redux frontend and express and postgres in the backend ",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
-  "plugins": ["react-hot-loader/babel"],
+  "plugins": [
+    "react-hot-loader/babel"
+  ],
   "scripts": {
     "prestart": "babel-node bin/scripts/startMessage.js",
-    "start":
-      "npm-run-all --parallel security-check test lint:watch db watch open:src",
+    "start": "npm-run-all --parallel security-check test lint:watch db watch open:src",
     "security-check": "nsp check",
-    "test":
-      "mocha --reporter progress --require babel-core/register test \"test/**/**/**/*.test.js\"",
+    "test": "mocha --watch --reporter progress --require babel-core/register test \"test/**/**/**/*.test.js\"",
     "watch": "webpack -d --progress --watch",
     "open:src": "nodemon --watch index --exec babel-node -- index.js",
     "clean": "rm -rf dist && rm -rf node_modules",
@@ -34,7 +33,10 @@
     "type": "git",
     "url": "git+https://github.com/OpenSourceJs/theBeast.git"
   },
-  "keywords": ["Starter", "kit"],
+  "keywords": [
+    "Starter",
+    "kit"
+  ],
   "author": "Mohamed Gassama",
   "license": "MIT",
   "bugs": {
@@ -80,11 +82,13 @@
     "flow-bin": "^0.63.1",
     "html-webpack-plugin": "^2.30.1",
     "html-webpack-template": "^6.1.0",
+    "install": "^0.10.4",
     "jest": "^22.1.4",
     "jquery": "^3.2.1",
     "jsdom": "^11.5.1",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.7",
+    "npm": "^5.6.0",
     "npm-run-all": "^4.1.2",
     "nsp": "^3.1.0",
     "numeral": "^2.0.6",
@@ -94,7 +98,6 @@
     "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
-    "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.0.0-beta.12",
     "react-redux": "^5.0.6",
@@ -105,6 +108,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
+    "sinon": "^4.2.2",
     "style-loader": "^0.19.1",
     "supertest": "^3.0.0",
     "url-loader": "^0.6.2",
@@ -122,7 +126,6 @@
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
     "helmet": "^3.9.0",
-    "history": "^4.7.2",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.26",
@@ -134,9 +137,7 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "pg": "^7.4.0",
     "ramda": "^0.25.0",
-    "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "socket.io": "^2.0.4"
   }
 }

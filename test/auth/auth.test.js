@@ -1,5 +1,7 @@
 import request from 'supertest';
-const server = request.agent('http://localhost:3000');
+import chai from 'chai';
+import server from '../../server/server';
+const expect = chai.expect;
 
 xdescribe('Authentication user', () => {
   it('should create new user', done => {
@@ -7,6 +9,10 @@ xdescribe('Authentication user', () => {
       .post('/signin')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200, done);
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.be.an('array');
+        done(err);
+      });
   });
 });

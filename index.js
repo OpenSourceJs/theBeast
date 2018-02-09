@@ -19,7 +19,7 @@ server.listen(port, err => {
   }
   print(
     chalk.blue.bold(
-      ` Listening on http//localhost:${chalk.red(port)} ====>>> 🌎`,
+      `Listening on http//localhost:${chalk.red(port)} ====>>> 🌎`,
     ),
   );
 });

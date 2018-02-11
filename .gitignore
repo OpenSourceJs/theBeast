@@ -1,5 +1,4 @@
 node_modules
 client/dist
 npm-debug-log
-.eslinttrc.json
-config/secret.js
+

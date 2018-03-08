@@ -6,7 +6,7 @@ import {
   FETCH_MESSAGE,
 } from '../actionTypes/authActionTypes';
 
-const ROOT_URL = 'http://localhost:3000';
+const ROOT_URL = 'http://localhost:4000';
 
 const authUser = () => {
   return { type: AUTH_USER };

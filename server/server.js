@@ -1,6 +1,7 @@
+require('dotenv').config();
 import express from 'express';
 import path from 'path';
-import http from 'http';
+
 
 import middleware from './middlewares/serverMiddleware';
 import { clientErr, serverErr } from './middlewares/errors';
@@ -10,7 +11,7 @@ import signUpRoute from './api/auth/routes/signup';
 import featureRoute from './api/feature/featureRoute';
 
 const server = express();
-http.createServer(server);
+
 
 server.use(express.static(path.join(__dirname, '../client/dist')));
 

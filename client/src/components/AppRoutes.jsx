@@ -1,3 +1,4 @@
+//@flow
 import React, { PropTypes } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RequireAuth from '../container/Auth/RequireAuth';

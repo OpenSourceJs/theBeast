@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
 
+
 export default server => {
   server.use(
     cors({

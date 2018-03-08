@@ -7,8 +7,8 @@ import htmlTemplate from 'html-webpack-template';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 // import BundleAnalyzerPlugin from 'webpack-bundle-analyzer'.BundleAnalyzerPlugin;
 
-const BUILD_DIR = path.resolve(__dirname, './client/dist');
-const APP_DIR = path.resolve(__dirname, './client/src');
+const BUILD_CLIENT_DIR = path.resolve(__dirname, './client/dist');
+const CLIENT_DIR = path.resolve(__dirname, './client/src');
 
 const fontLoaderConfig = {
   name: '/fonts/[name].[ext]',
@@ -16,12 +16,18 @@ const fontLoaderConfig = {
 };
 
 const config = {
-  entry: ['babel-polyfill', 'react-hot-loader/patch', `${APP_DIR}/main.jsx`],
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:4001',
+    'webpack/hot/only-dev-server',
+    `${CLIENT_DIR}/main.jsx`,
+  ],
   output: {
-    path: BUILD_DIR,
+    path: BUILD_CLIENT_DIR,
     filename: './js/[name].js',
-    publicPath: '/',
+    publicPath: 'http://localhost:4001/',
   },
+  target: 'web',
   cache: true,
   devtool: 'inline-source-map',
   stats: {
@@ -43,9 +49,13 @@ const config = {
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        BUILD_TARGET: JSON.stringify('client'),
       },
     }),
     new HtmlWebpackPlugin({
@@ -191,6 +201,12 @@ const config = {
         use: 'raw-loader',
       },
     ],
+  },
+  devServer: {
+    host: 'localhost',
+    port: 4001,
+    historyApiFallback: true,
+    hot: true,
   },
 };
 

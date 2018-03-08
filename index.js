@@ -1,9 +1,16 @@
 import chalk from 'chalk';
 import open from 'open';
+import http from 'http';
+// import { execute, subscribe } from 'graphql'
+import { createServer } from 'http';
 import print from './libs/utils';
 import server from './server/server';
+// import schema from './schema'
 
-const port = process.argv[2] || process.env.Port || 3000;
+const port = 4000;
+
+const app = http.createServer(server);
+let currentApp = server;
 
 const renderToTheBrowser = () => {
   return global.setTimeout(() => {
@@ -23,3 +30,11 @@ server.listen(port, err => {
     ),
   );
 });
+
+if (module.hot) {
+  module.hot.accept(['./server/server'], () => {
+    server.removeListener('request', currentApp);
+    server.on('request', server);
+    currentApp = server;
+  });
+}

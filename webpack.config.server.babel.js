@@ -6,10 +6,10 @@ import StartServerPlugin from 'start-server-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const BUILD_SERVER_DIR = path.resolve(__dirname, './server/dist');
-const SERVER_DIR = path.resolve(__dirname, './');
+const SERVER_DIR = path.resolve(__dirname, './index');
 
 const config = {
-  entry: ['webpack/hot/poll?1000', `${SERVER_DIR}/index`],
+  entry: ['webpack/hot/poll?1000', `${SERVER_DIR}`],
   output: {
     path: path.join(__dirname, `${BUILD_SERVER_DIR}`),
     filename: './js/server.js',

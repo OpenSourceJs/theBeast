@@ -32,7 +32,7 @@ const render = component => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./components/App.jsx', () => {
+  module.hot.accept('./components/App/App.jsx', () => {
     render(App);
   });
 }

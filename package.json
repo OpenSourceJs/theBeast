@@ -5,8 +5,7 @@
     "node": "9.2.0"
   },
   "private": true,
-  "description":
-    "This is a full stack web application react-redux frontend and express and postgres in the backend ",
+  "description": "This is a full stack web application react-redux frontend and express and postgres in the backend ",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -15,12 +14,9 @@
     "prestart": "babel-node bin/scripts/startMessage.js",
     "start": "npm-run-all --parallel lint:watch db  start:client start:server",
     "security-check": "nsp check",
-    "test":
-      "mocha --watch --reporter progress --require babel-core/register test \"test/**/**/**/*.test.js\"",
-    "start:client":
-      "webpack -d  --colors --progress --watch --config webpack.config.client.babel.js",
-    "start:server":
-      "webpack -d --colors --progress --config webpack.config.server.babel.js",
+    "test": "mocha --watch --reporter progress --require babel-core/register test \"test/**/**/**/*.test.js\"",
+    "start:client": "webpack -d  --colors --progress --watch --config webpack.config.client.babel.js",
+    "start:server": "webpack -d --colors --progress --config webpack.config.server.babel.js",
     "clean": "rm -rf dist && rm -rf node_modules",
     "lint": "esw app",
     "lint:watch": "npm run lint -- --watch",
@@ -34,7 +30,10 @@
     "type": "git",
     "url": "git+https://github.com/OpenSourceJs/theBeast.git"
   },
-  "keywords": ["Starter", "kit"],
+  "keywords": [
+    "Starter",
+    "kit"
+  ],
   "author": "Mohamed Gassama",
   "license": "MIT",
   "bugs": {
@@ -115,6 +114,7 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-merge": "^4.1.2",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {

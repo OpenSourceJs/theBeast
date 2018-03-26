@@ -7,7 +7,6 @@ import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
 
-
 export default server => {
   server.use(
     cors({
@@ -16,22 +15,22 @@ export default server => {
         'X-Requested-With',
         'Content-Type',
         'Accept',
-        'token_authorization'
-      ]
-    })
+        'token_authorization',
+      ],
+    }),
   );
   server.use(
     bodyParser.json({
-      type: '*/*'
-    })
+      type: '*/*',
+    }),
   );
   server.use(helmet());
   server.use(compression());
   server.use(cookieParser());
-  server.use(logger('combined'));
+  server.use(logger('dev'));
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(expressValidator());
   server.use(
-    expressSession({ secret: 'max', resave: false, saveUninitialized: false })
+    expressSession({ secret: 'max', resave: false, saveUninitialized: false }),
   );
 };

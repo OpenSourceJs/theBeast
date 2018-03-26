@@ -33,12 +33,6 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['common', 'main'],
-      minChunks: Infinity,
-      children: true,
-      async: true,
-    }),
     new CleanWebpackPlugin(['./client/dist/']),
     new webpack.LoaderOptionsPlugin({
       debug: true,
@@ -200,16 +194,7 @@ if (
   process.env.NODE_ENV &&
   process.env.NODE_ENV === 'production'
 ) {
-  const prodPlugins = [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: true,
-      },
-      output: {
-        comments: false,
-      },
-    }),
-  ];
+  const prodPlugins = [];
 
   config.plugins = _.concat(config.plugins, prodPlugins);
   config.cache = false;

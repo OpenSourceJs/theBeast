@@ -30,11 +30,3 @@ server.listen(port, err => {
     ),
   );
 });
-
-if (module.hot) {
-  module.hot.accept(['./server/server'], () => {
-    server.removeListener('request', currentApp);
-    server.on('request', server);
-    currentApp = server;
-  });
-}

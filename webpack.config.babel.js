@@ -4,8 +4,9 @@ import _ from 'lodash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import htmlTemplate from 'html-webpack-template';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
-// import BundleAnalyzerPlugin from 'webpack-bundle-analyzer'.BundleAnalyzerPlugin;
+
 
 const BUILD_CLIENT_DIR = path.resolve(__dirname, './client/dist');
 const CLIENT_DIR = path.resolve(__dirname, './client/src');
@@ -21,17 +22,34 @@ const config = {
     path: BUILD_CLIENT_DIR,
     filename: './js/[name].js',
   },
-  target: 'web',
+  target: 'node',
   cache: true,
   devtool: 'inline-source-map',
   stats: {
     colors: true,
     reasons: true,
   },
+  optimization: {
+    runtimeChunk: false,
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'main',
+          chunks: 'all',
+        },
+      },
+    },
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+      }),
+    ],
+  },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-
   plugins: [
     new CleanWebpackPlugin(['./client/dist/']),
     new webpack.LoaderOptionsPlugin({

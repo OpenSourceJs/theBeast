@@ -35,7 +35,7 @@ const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  // other loaders, plugins etc. specific for frontend
+
   module: {
     rules: [
       {

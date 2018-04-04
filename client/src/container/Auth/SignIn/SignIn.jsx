@@ -111,7 +111,7 @@ class SignIn extends Component {
             <Button
               onClick={handleSubmit(this.handleFormSubmit.bind(this))}
               className={classes.sendButton}
-              raised
+              variant="raised"
               color="primary"
             >
               Sign In

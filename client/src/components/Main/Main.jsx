@@ -21,7 +21,7 @@ const Main = props => {
       <Button
         component={Link}
         to="/getstarted"
-        raised
+        variant="raised"
         color="primary"
         className={classes.button}
       >

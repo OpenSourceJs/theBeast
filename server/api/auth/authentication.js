@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('./user');
-const secretToken = require('../../../config/secret');
+const secretToken = require('../../../configs/secret');
 
 const tokenForUser = user => {
   const timeStamp = new Date().getTime();
@@ -44,12 +44,10 @@ exports.signup = (req, res, next) => {
   }
 
   if (!isValidPassword(password)) {
-    return res
-      .status(422)
-      .send({
-        error:
-          'Password must have minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
-      });
+    return res.status(422).send({
+      error:
+        'Password must have minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+    });
   }
 
   // See if a user with a given email exists

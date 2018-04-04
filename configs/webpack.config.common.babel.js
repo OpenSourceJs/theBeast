@@ -3,11 +3,13 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import htmlTemplate from 'html-webpack-template';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import nodeExternals from 'webpack-node-externals';
 import StartServerPlugin from 'start-server-webpack-plugin';
 import path from 'path';
 
 const BUILD_CLIENT_DIR = path.resolve(__dirname, '../client/dist');
 const CLIENT_DIR = path.resolve(__dirname, '../client/src');
+
 const BUILD_SERVER_DIR = path.resolve(__dirname, '../server/dist');
 const SERVER_DIR = path.resolve(__dirname, '../index');
 
@@ -17,10 +19,12 @@ const fontLoaderConfig = {
 };
 
 const clientConfig = {
-  entry: [CLIENT_DIR],
+  entry: [`${CLIENT_DIR}/main.jsx`],
   output: {
-    filename: BUILD_CLIENT_DIR,
+    path: BUILD_CLIENT_DIR,
+    filename: './js/[name].js',
   },
+  watch: true,
   target: 'web',
   cache: true,
   devtool: 'inline-source-map',
@@ -132,13 +136,7 @@ const clientConfig = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['common', 'main'],
-      minChunks: Infinity,
-      children: true,
-      async: true,
-    }),
-    new CleanWebpackPlugin(['./client/dist/']),
+    new CleanWebpackPlugin([BUILD_CLIENT_DIR]),
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
@@ -196,10 +194,12 @@ const clientConfig = {
 };
 
 const serverConfig = {
-  entry: [SERVER_DIR],
+  entry: ['webpack/hot/poll?1000', SERVER_DIR],
   output: {
-    filename: BUILD_SERVER_DIR,
+    path: BUILD_SERVER_DIR,
+    filename: './js/server.js',
   },
+  watch: true,
   target: 'node',
   cache: true,
   devtool: 'inline-source-map',
@@ -207,8 +207,13 @@ const serverConfig = {
     colors: true,
     reasons: true,
   },
+  node: {
+    __filename: true,
+    __dirname: true,
+  },
+  externals: [nodeExternals({ whitelist: ['webpack/hot/poll?1000'] })],
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
   },
   module: {
     rules: [
@@ -236,7 +241,7 @@ const serverConfig = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['./server/dist/']),
+    new CleanWebpackPlugin([BUILD_SERVER_DIR]),
     new StartServerPlugin('./js/server.js'),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

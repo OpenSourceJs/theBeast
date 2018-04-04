@@ -3,7 +3,7 @@ import JwtStrategy from 'passport-jwt';
 import ExtractJwt from 'passport-jwt';
 import LocalStrategy from 'passport-local';
 import User from '../api/auth/user';
-import config from '../../config/secret';
+import config from '../../configs/secret';
 
 const JwtS = JwtStrategy.Strategy;
 const Ext = ExtractJwt.ExtractJwt;
